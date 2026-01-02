@@ -6,7 +6,6 @@ import { Circle, Heart, User2 } from "lucide-react";
 const page = () => {
   const items = [
     { hobby: "Coding" },
-    { hobby: "Playing Games" },
     { hobby: "Swimming" },
     { hobby: "Reading" },
     { hobby: "Creating Cool Projects" },

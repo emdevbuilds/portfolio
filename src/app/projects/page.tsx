@@ -9,9 +9,10 @@ const projectsPage = () => {
   const Projects = [
     {
       title: "OUNUU Health Alliance",
-      description: `Obiumunna Na Umuada United (OUNUU) Health Alliance is the healthcare initiative of Obiumunna Na Umuada United, a nonprofit organization dedicated to transforming lives and empowering communities. Through OUNUU Health Alliance, we improve health outcomes and support vulnerable populations with compassion and purpose.`,
+      description: `Obiumunna Na Umuada United (OUNUU) Health Alliance is the healthcare initiative of Obiumunna Na Umuada United, a nonprofit organization dedicated to transforming lives and empowering communities.`,
       tags: ["Nextjs", "MongoDB"],
       link: "https://ounuu-health-alliance.vercel.app/",
+      image: "/projects/ounuu-health-alliance.png",
     },
     {
       title: "Trust Rising Sun Limited",
@@ -19,26 +20,7 @@ const projectsPage = () => {
 With a passion for fine wines and a commitment to exceptional service, we strive to bring the finest selection of wines to retailers, restaurants, and wine enthusiasts alike.`,
       tags: ["PHP", "SQL", "HTML", "CSS"],
       link: "https://trustrinsingsunltd.com/",
-    },
-
-    {
-      title: "Hirst Painting",
-      description:
-        "The program generate color pallete from image and use the color to create a Hirst painting",
-      tags: ["Python"],
-      link: "https://github.com/emmanuel-dev3/hirst-painting",
-    },
-    {
-      title: "Coffee Machine Project",
-      description: "OOP In Coffe Machine Using Python",
-      tags: ["Python"],
-      link: "https://github.com/emmanuel-dev3/OOP-In-Coffee-Machine-Project",
-    },
-    {
-      title: "QR Code Component Main",
-      description: "Simple QR code component",
-      tags: ["HTML", "CSS"],
-      link: "https://github.com/emmanuel-dev3/qr-code-component-main",
+      image: "/projects/trust-rising-sun.png",
     },
   ];
 

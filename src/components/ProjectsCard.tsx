@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import Image from "next/image";
 import { buttonVariants } from "./ui/button";
 import {
   Card,
@@ -17,6 +18,7 @@ interface ProjectCardProps {
     description: string;
     tags: string[];
     link: string;
+    image: string;
   };
   num: number;
 }
@@ -30,7 +32,17 @@ const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
       delay={num/4} 
       duration={0.15}
     >
-      <Card className="w-full h-full flex flex-col hover:shadow-lg transition-all duration-300 border-2">
+      <Card className="w-full h-full flex flex-col hover:shadow-lg transition-all duration-300 border-2 overflow-hidden">
+        {/* Project Image */}
+        <div className="relative w-full h-48 overflow-hidden">
+          <Image
+            src={value.image}
+            alt={value.title}
+            fill
+            className="object-cover object-top transition-transform duration-300 hover:scale-105"
+          />
+        </div>
+
         <CardHeader className="pb-2">
           <CardTitle className="text-xl font-bold text-primary">{value.title}</CardTitle>
         </CardHeader>
@@ -40,7 +52,7 @@ const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
           
           <div className="flex flex-wrap gap-2">
             {value.tags.map((tag: string, index: number) => {
-              const tagStyles = {
+              const tagStyles: { [key: string]: string } = {
                 'Nextjs': 'bg-teal-100 text-teal-800',
                 'Freelancing': 'bg-yellow-100 text-yellow-800',
                 'Shadcn Ui': 'bg-blue-100 text-blue-800',
@@ -51,13 +63,19 @@ const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
                 'Npx': 'bg-indigo-100 text-indigo-800',
                 'Library': 'bg-pink-100 text-pink-800',
                 'Zod': 'bg-cyan-100 text-cyan-800',
-                'React Hook Form': 'bg-violet-100 text-violet-800'
-              }[tag] || 'bg-gray-100 text-gray-800';
+                'React Hook Form': 'bg-violet-100 text-violet-800',
+                'MongoDB': 'bg-green-100 text-green-800',
+                'PHP': 'bg-indigo-100 text-indigo-800',
+                'SQL': 'bg-blue-100 text-blue-800',
+                'HTML': 'bg-orange-100 text-orange-800',
+                'CSS': 'bg-sky-100 text-sky-800',
+                'Python': 'bg-yellow-100 text-yellow-800',
+              };
 
               return (
                 <span 
                   key={index}
-                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${tagStyles}`}
+                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${tagStyles[tag] || 'bg-gray-100 text-gray-800'}`}
                 >
                   {tag}
                 </span>

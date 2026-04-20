@@ -3,6 +3,7 @@
 // import Image from "next/image";
 import Typewriter from "typewriter-effect";
 import ZoomableImage from "@/components/ZoomableImage";
+import { Globe } from "lucide-react";
 
 export default function Home() {
   return (
@@ -14,18 +15,15 @@ export default function Home() {
             alt="Emmanuel Chukwu"
             className="rounded-full ring-2 ring-green-500 p-1 w-24 h-24"
           />
-          {/* <Image
-            src="/emmanuel.jpg"
-            alt="Emmanuel Chukwu"
-            width={150}
-            height={150}
-            priority
-            className="rounded-full ring-2 ring-green-500 p-1 cursor-zoom-in"
-          /> */}
+        </div>
+
+        <div className="flex w-fit items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-3 py-1 text-sm text-green-600 dark:text-green-400">
+          <Globe size={14} />
+          <span>Open to remote</span>
         </div>
 
         <h1 className="text-2xl font-semibold leading-8 tracking-normal text-primary">
-          Hi, I&apos;m Emmanuel Chukwu. <br />
+          Hi, I&apos;m Emmanuel Chukwu <br />
           <span className="text-green-600">
             <Typewriter
               onInit={(typewriter) => {
@@ -49,10 +47,9 @@ export default function Home() {
             />
           </span>
         </h1>
-        <p className="text-lg text-muted-foreground dark:text-zinc-400">
-          Full-stack developer specialising in Next.js, TypeScript, and Node.js.
-          I turn ideas into fast, production-ready applications — from
-          architecture to deployment.
+        <p className="text-base text-muted-foreground dark:text-zinc-400">
+          I build fast, production-ready web apps with Next.js, TypeScript &
+          Node.js.
         </p>
       </div>
     </main>

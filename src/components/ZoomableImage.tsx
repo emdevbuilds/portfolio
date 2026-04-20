@@ -20,7 +20,6 @@ const ZoomableImage = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {/* The thumbnail */}
         <Image
           src={src}
           alt={alt}
@@ -39,7 +38,7 @@ const ZoomableImage = ({
         </DialogDescription>
         <div className="relative h-[80vh] w-full">
           <Image
-            src="/emmanuel-chukwu-full.jpg"
+            src={src}
             alt={alt}
             fill
             className="object-contain"

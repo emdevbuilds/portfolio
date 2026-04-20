@@ -1,18 +1,18 @@
 "use client";
 
-import Image from "next/image";
+// import Image from "next/image";
 import Typewriter from "typewriter-effect";
 import ZoomableImage from "@/components/ZoomableImage";
 
 export default function Home() {
   return (
-    <main className="border-x border-grey-500 flex flex-col flex-1 font-sans dark:bg-black">
-      <div className="flex flex-col items-center gap-6 px-4 py-2 text-center sm:items-start sm:text-left">
+    <main className="flex flex-col flex-1 font-sans dark:bg-black">
+      <div className="flex flex-col items-left gap-6 text-left">
         <div className="">
           <ZoomableImage
             src="/emmanuel.jpg"
             alt="Emmanuel Chukwu"
-            className="rounded-full ring-2 ring-green-500 p-1 w-32 h-32"
+            className="rounded-full ring-2 ring-green-500 p-1 w-24 h-24"
           />
           {/* <Image
             src="/emmanuel.jpg"
@@ -24,13 +24,13 @@ export default function Home() {
           /> */}
         </div>
 
-        <h1 className="text-3xl font-semibold leading-10 tracking-normal text-primary">
+        <h1 className="text-2xl font-semibold leading-8 tracking-normal text-primary">
           Hi, I&apos;m Emmanuel Chukwu. <br />
           <span className="text-green-600">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
-                  .typeString("Full Stack Software Developer")
+                  .typeString("Software Engineer")
                   .callFunction(() => {
                     const cursor = document.querySelector(
                       ".Typewriter__cursor",

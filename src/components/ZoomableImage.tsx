@@ -26,6 +26,7 @@ const ZoomableImage = ({
           width={200}
           height={200}
           className={`cursor-zoom-in transition-transform hover:scale-[1.02] ${className}`}
+          preload={true}
         />
       </DialogTrigger>
       {/* The full-screen view */}
@@ -43,6 +44,8 @@ const ZoomableImage = ({
             fill
             className="object-contain"
             quality={100}
+            preload={true}
+            sizes="90vw"
           />
         </div>
       </DialogContent>

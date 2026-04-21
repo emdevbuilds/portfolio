@@ -12,7 +12,7 @@ export default function Home() {
         <div className="">
           <ZoomableImage
             src="/emmanuel.jpg"
-            alt="Emmanuel Chukwu"
+            alt="Emmanuel Chukwu profile picture"
             className="rounded-full ring-2 ring-green-500 p-1 w-24 h-24"
           />
         </div>

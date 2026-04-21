@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
-// import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -40,8 +40,8 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
-        {/* <Navbar /> */}
-        <div className="mx-auto max-w-7xl px-6 pt-8 sm:px-32 lg:px-52">
+        <Navbar />
+        <div className="mx-auto max-w-7xl px-6 pt-10 md:pt-32 sm:px-32 lg:px-52">
           {children}
         </div>
         <Analytics />

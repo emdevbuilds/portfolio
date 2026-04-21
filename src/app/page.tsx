@@ -3,7 +3,7 @@
 // import Image from "next/image";
 import Typewriter from "typewriter-effect";
 import ZoomableImage from "@/components/ZoomableImage";
-import { Globe } from "lucide-react";
+import { BriefcaseBusiness } from "lucide-react";
 
 export default function Home() {
   return (
@@ -17,9 +17,9 @@ export default function Home() {
           />
         </div>
 
-        <div className="flex w-fit items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-3 py-1 text-sm text-green-600 dark:text-green-400">
-          <Globe size={14} />
-          <span>Open to remote</span>
+        <div className="flex font-medium w-fit items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-3 py-1 text-sm text-green-600 dark:text-green-400">
+          <BriefcaseBusiness size={14} />
+          <span>Open to work</span>
         </div>
 
         <h1 className="text-2xl font-semibold leading-8 tracking-normal text-primary">

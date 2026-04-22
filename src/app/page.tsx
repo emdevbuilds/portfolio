@@ -1,9 +1,11 @@
 "use client";
 
 // import Image from "next/image";
+// import Link from "next/link";
 import Typewriter from "typewriter-effect";
 import ZoomableImage from "@/components/ZoomableImage";
 import { BriefcaseBusiness } from "lucide-react";
+import CtaButtons from "@/components/CtaButton";
 
 export default function Home() {
   return (
@@ -51,6 +53,7 @@ export default function Home() {
           I build fast, production-ready web apps with Next.js, TypeScript &
           Node.js.
         </p>
+        <CtaButtons />
       </div>
     </main>
   );

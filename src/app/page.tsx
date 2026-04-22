@@ -6,12 +6,13 @@ import Typewriter from "typewriter-effect";
 import ZoomableImage from "@/components/ZoomableImage";
 import { BriefcaseBusiness } from "lucide-react";
 import CtaButtons from "@/components/CtaButton";
+import Marquee from "react-fast-marquee";
 
 export default function Home() {
   return (
     <main className="flex flex-col flex-1 font-sans dark:bg-black">
-      <div className="flex flex-col items-left gap-6 text-left">
-        <div className="">
+      <section id="hero" className="flex flex-col items-left gap-6 text-left">
+        <div>
           <ZoomableImage
             src="/emmanuel.jpg"
             alt="Emmanuel Chukwu profile picture"
@@ -54,7 +55,19 @@ export default function Home() {
           Node.js.
         </p>
         <CtaButtons />
-      </div>
+      </section>
+
+      <section id="marquee" className="mt-10" aria-label="Tech stack">
+        <Marquee>Marquee</Marquee>
+      </section>
+
+      <section id="about" className="mt-16 flex flex-col gap-6">
+        <h1>about section</h1>
+      </section>
+
+      <section id="projects" className="mt-16 flex flex-col gap-6">
+        <h1>project section</h1>
+      </section>
     </main>
   );
 }

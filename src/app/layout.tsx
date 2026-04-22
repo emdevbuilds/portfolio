@@ -41,7 +41,8 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Navbar />
-        <div className="mx-auto max-w-7xl px-6 pt-10 md:pt-32 sm:px-32 lg:px-52">
+        {/* mx-auto w-full max-w-6xl px-6 sm:px-32 pt-10 md:pt-28 lg:px-52 */}
+        <div className="mx-auto w-full max-w-4xl px-6 sm:px-10 md:px-20 pt-10 md:pt-24">
           {children}
         </div>
         <Analytics />

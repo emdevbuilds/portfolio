@@ -4,9 +4,10 @@
 // import Link from "next/link";
 import Typewriter from "typewriter-effect";
 import ZoomableImage from "@/components/ZoomableImage";
+import Marquee from "react-fast-marquee";
 import { BriefcaseBusiness } from "lucide-react";
 import CtaButtons from "@/components/CtaButton";
-import Marquee from "react-fast-marquee";
+import { techStack } from "@/lib/techStack";
 
 export default function Home() {
   return (
@@ -58,7 +59,17 @@ export default function Home() {
       </section>
 
       <section id="marquee" className="mt-10" aria-label="Tech stack">
-        <Marquee>Marquee</Marquee>
+        <Marquee gradient={true} gradientWidth={120} speed={40}>
+          {techStack.map(({ name, Icon }) => (
+            <div
+              key={name}
+              className="flex items-center gap-2 mx-8 text-sm text-zinc-500"
+            >
+              <Icon size={20} />
+              <span>{name}</span>
+            </div>
+          ))}
+        </Marquee>
       </section>
 
       <section id="about" className="mt-16 flex flex-col gap-6">

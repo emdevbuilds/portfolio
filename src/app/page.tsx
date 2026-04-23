@@ -9,6 +9,8 @@ import { BriefcaseBusiness } from "lucide-react";
 import CtaButtons from "@/components/CtaButton";
 import { techStack } from "@/lib/techStack";
 import { facts } from "@/lib/facts";
+import { techSkills } from "@/lib/techSkills";
+import { experience } from "@/lib/experience";
 
 export default function Home() {
   return (
@@ -143,12 +145,93 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Experience ── */}
+      <section
+        id="experience"
+        className="py-24 flex flex-col gap-6 border-t border-zinc-100 dark:border-zinc-800"
+      >
+        <h2 className="text-xl font-semibold text-primary">Experience</h2>
+        <div className="flex flex-col gap-6">
+          {experience.map((job) => (
+            <div
+              key={job.company}
+              className="group p-5 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 flex flex-col gap-3"
+            >
+              {/* Top row */}
+              <div className="flex items-start justify-between gap-3 flex-wrap">
+                <div className="flex flex-col gap-0.5">
+                  <p className="text-sm font-medium text-primary">{job.role}</p>
+                  <p className="text-sm text-muted-foreground">{job.company}</p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span
+                    className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                      job.type === "Pro Bono"
+                        ? "bg-green-500/10 border border-green-500/25 text-green-600 dark:text-green-400"
+                        : "bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400"
+                    }`}
+                  >
+                    {job.type}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {job.period}
+                  </span>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="h-px bg-zinc-100 dark:bg-zinc-800" />
+
+              {/* Description */}
+              <p className="text-sm text-muted-foreground leading-6">
+                {job.description}
+              </p>
+
+              {/* Stack tags */}
+              <div className="flex flex-wrap gap-1.5">
+                {job.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2 py-0.5 rounded text-xs bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ── Skills ── */}
       <section
         id="skills"
         className="py-24 flex flex-col gap-6 border-t border-zinc-100 dark:border-zinc-800"
       >
         <h2 className="text-xl font-semibold text-primary">Skills</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {techSkills.map((category) => (
+            <div
+              key={category.title}
+              className="p-5 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800"
+            >
+              <h3 className="text-sm font-medium text-primary mb-3">
+                {category.title}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {category.items.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-2 py-1 rounded text-xs font-medium bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* ── Projects ── */}

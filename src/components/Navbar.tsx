@@ -3,13 +3,24 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, Code2, Briefcase, Mail } from "lucide-react";
+import { Home, User, Code2, Briefcase, Mail, FolderGit2 } from "lucide-react";
 
 const navItems = [
   { name: "Home", href: "#", icon: Home, section: "home" },
   { name: "About", href: "#about", icon: User, section: "about" },
+  {
+    name: "Experience",
+    href: "#experience",
+    icon: Briefcase,
+    section: "experience",
+  },
   { name: "Skills", href: "#skills", icon: Code2, section: "skills" },
-  { name: "Projects", href: "#projects", icon: Briefcase, section: "projects" },
+  {
+    name: "Projects",
+    href: "#projects",
+    icon: FolderGit2,
+    section: "projects",
+  },
   { name: "Contact", href: "#contact", icon: Mail, section: "contact" },
 ];
 

@@ -13,10 +13,7 @@ import { facts } from "@/lib/facts";
 export default function Home() {
   return (
     <main className="flex flex-col flex-1 font-sans dark:bg-black">
-      <section
-        id="home"
-        className="flex flex-col gap-6 pt-14 pb-16 md:pt-4 md:pb-20"
-      >
+      <section id="home" className="flex flex-col gap-6 py-16 md:pt-8 md:pb-20">
         <div>
           <ZoomableImage
             src="/emmanuel.jpg"
@@ -30,7 +27,7 @@ export default function Home() {
           <span>Open to work</span>
         </div>
 
-        <h1 className="text-2xl font-semibold leading-8 tracking-normal text-primary">
+        <h1 className="text-2xl font-semibold leading-10 tracking-normal text-primary">
           Hi, I&apos;m Emmanuel Chukwu <br />
           <span className="text-green-600">
             <Typewriter
@@ -55,9 +52,9 @@ export default function Home() {
             />
           </span>
         </h1>
-        <p className="text-base text-muted-foreground dark:text-zinc-400">
-          I build fast, production-ready web apps with Next.js, TypeScript &
-          Node.js.
+        <p className="leading-8 text-base text-muted-foreground dark:text-zinc-400">
+          I build fast, production-ready web apps that ship to real users - with
+          Next.js, TypeScript, and a backend that can handle it.
         </p>
         <CtaButtons />
       </section>
@@ -81,15 +78,18 @@ export default function Home() {
       </div>
 
       {/* ── About ── */}
-      <section id="about" className="py-24 flex flex-col gap-6">
+      <section
+        id="about"
+        className="leading-8 text-base text-muted-foreground py-24 flex flex-col gap-6"
+      >
         <h2 className="text-xl font-semibold text-primary">About</h2>
-        <p className="text-base text-muted-foreground">
+        <p>
           I started writing code in 2021 with a 3-month bootcamp — and I
           haven&apos;t stopped since. What began as structured learning quickly
           became self-directed obsession: reading documentation, building real
           projects, breaking things, and fixing them at 2 AM.
         </p>
-        <p className="text-base text-muted-foreground">
+        <p>
           I&apos;m a full-stack developer with hands-on experience shipping web
           applications that handle real users and real money. I built a
           healthcare platform for a non-profit organisation serving communities
@@ -100,19 +100,19 @@ export default function Home() {
           backend with PostgreSQL, Prisma, Redis, Socket.io, and an escrow
           payment system.
         </p>
-        <p className="text-base text-muted-foreground">
+        <p>
           I started with JavaScript, PHP and SQL, moved through the MERN stack,
           and now work primarily with Next.js, TypeScript, Express, PostgreSQL,
           and Prisma — tools I chose deliberately because they&apos;re what
           production teams actually use.
         </p>
-        <p className="text-base text-muted-foreground">
+        <p>
           Alongside my development work, I&apos;m pursuing a BSc in Computer
           Science at IU International University of Applied Sciences (Germany),
           which has deepened my foundations in algorithms, data structures, and
           software engineering principles.
         </p>
-        <p className="text-base text-muted-foreground border-l-2 border-green-500 pl-4">
+        <p className="border-l-2 border-green-500 pl-4">
           I don&apos;t have a big company name on my CV yet — but I have shipped
           code, solved hard problems, and built things from scratch that
           actually work. I&apos;m looking for a remote role — or an onsite
@@ -122,12 +122,10 @@ export default function Home() {
 
         <div className="flex items-center gap-3 mt-2">
           <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800" />
-          <span className="text-xs text-muted-foreground tracking-widest uppercase">
-            Quick facts
-          </span>
+          <span className="text-xs tracking-widest uppercase">Quick facts</span>
           <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800" />
         </div>
-        <div className="grid grid-cols-1 gap-2.5">
+        <div className="leading-4 grid grid-cols-1 gap-2.5">
           {facts.map(({ icon, label, value }) => (
             <div
               key={label}
@@ -137,9 +135,7 @@ export default function Home() {
                 {icon}
               </div>
               <div>
-                <p className="text-[11px] text-muted-foreground mb-0.5">
-                  {label}
-                </p>
+                <p className="text-[11px] mb-0.5">{label}</p>
                 <p className="text-sm text-primary leading-snug">{value}</p>
               </div>
             </div>

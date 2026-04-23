@@ -12,7 +12,10 @@ import { techStack } from "@/lib/techStack";
 export default function Home() {
   return (
     <main className="flex flex-col flex-1 font-sans dark:bg-black">
-      <section id="hero" className="flex flex-col items-left gap-6 text-left">
+      <section
+        id="home"
+        className="flex flex-col gap-6 pt-12 pb-16 md:pt-4 md:pb-20"
+      >
         <div>
           <ZoomableImage
             src="/emmanuel.jpg"
@@ -58,7 +61,11 @@ export default function Home() {
         <CtaButtons />
       </section>
 
-      <section id="marquee" className="mt-10" aria-label="Tech stack">
+      <div
+        id="marquee"
+        className="py-10 border-y border-zinc-100 dark:border-zinc-800"
+        aria-label="Tech stack"
+      >
         <Marquee gradient={true} gradientWidth={120} speed={40}>
           {techStack.map(({ name, Icon }) => (
             <div
@@ -70,14 +77,27 @@ export default function Home() {
             </div>
           ))}
         </Marquee>
+      </div>
+
+      {/* ── About ── */}
+      <section id="about" className="py-24 flex flex-col gap-6">
+        <h2 className="text-xl font-semibold text-primary">About</h2>
       </section>
 
-      <section id="about" className="mt-16 flex flex-col gap-6">
-        <h1>about section</h1>
+      {/* ── Skills ── */}
+      <section
+        id="skills"
+        className="py-24 flex flex-col gap-6 border-t border-zinc-100 dark:border-zinc-800"
+      >
+        <h2 className="text-xl font-semibold text-primary">Skills</h2>
       </section>
 
-      <section id="projects" className="mt-16 flex flex-col gap-6">
-        <h1>project section</h1>
+      {/* ── Projects ── */}
+      <section
+        id="projects"
+        className="py-24 flex flex-col gap-6 border-t border-zinc-100 dark:border-zinc-800"
+      >
+        <h2 className="text-xl font-semibold text-primary">Projects</h2>
       </section>
     </main>
   );

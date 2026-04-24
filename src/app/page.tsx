@@ -84,7 +84,7 @@ export default function Home() {
         id="about"
         className="leading-8 text-base text-muted-foreground py-24 flex flex-col gap-6"
       >
-        <h2 className="text-xl font-semibold text-primary">About</h2>
+        <h2 className="text-xl font-semibold mb-3 text-primary">About</h2>
         <p>
           I started writing code in 2021 with a 3-month bootcamp — and I
           haven&apos;t stopped since. What began as structured learning quickly
@@ -150,7 +150,7 @@ export default function Home() {
         id="experience"
         className="py-24 flex flex-col gap-8 border-t border-zinc-100 dark:border-zinc-800"
       >
-        <h2 className="text-xl font-semibold text-primary">Experience</h2>
+        <h2 className="text-xl font-semibold mb-3 text-primary">Experience</h2>
 
         <div className="relative flex flex-col gap-0 ml-3">
           <div className="absolute left-0 top-2 bottom-2 w-px bg-zinc-200 dark:bg-zinc-700" />
@@ -212,7 +212,7 @@ export default function Home() {
         id="skills"
         className="py-24 flex flex-col gap-8 border-t border-zinc-100 dark:border-zinc-800"
       >
-        <h2 className="text-xl font-semibold text-primary">Skills</h2>
+        <h2 className="text-xl font-semibold mb-3 text-primary">Skills</h2>
 
         <div className="flex flex-col gap-3">
           {techSkills.map((category, i) => {
@@ -254,7 +254,7 @@ export default function Home() {
         id="projects"
         className="py-24 flex flex-col gap-6 border-t border-zinc-100 dark:border-zinc-800"
       >
-        <h2 className="text-xl font-semibold text-primary">Projects</h2>
+        <h2 className="text-xl font-semibold mb-3 text-primary">Projects</h2>
       </section>
     </main>
   );

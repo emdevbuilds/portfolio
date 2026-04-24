@@ -50,13 +50,12 @@ const Navbar = () => {
 
       if (visible.length === 0) return;
 
-      // The last section whose top is above the midpoint is the active one
       const active = visible[visible.length - 1];
       setActiveSection(active.id);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // run once on mount
+    handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);

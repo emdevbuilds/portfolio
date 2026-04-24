@@ -1,17 +1,28 @@
 "use client";
 
-// import Image from "next/image";
-// import Link from "next/link";
+import React from "react";
 import Typewriter from "typewriter-effect";
 import ZoomableImage from "@/components/ZoomableImage";
 import Marquee from "react-fast-marquee";
-import { BriefcaseBusiness } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  ArrowUpRight,
+  Github,
+  Globe,
+  Mail,
+  Linkedin,
+} from "lucide-react";
 import CtaButtons from "@/components/CtaButton";
 import { techStack } from "@/lib/techStack";
 import { facts } from "@/lib/facts";
 import { techSkills } from "@/lib/techSkills";
 import { experience } from "@/lib/experience";
+import { projects } from "@/lib/projects";
+import { socialLinks } from "@/lib/socialLinks";
 import { motion } from "framer-motion";
+import Link from "next/link";
+
+// ── Animation variants ──────────────────────────────────────────────────────
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -31,7 +42,8 @@ const fadeIn = {
   visible: { opacity: 1, transition: { duration: 0.6 } },
 };
 
-// Wrapper that triggers animation when scrolled into view
+// ── Shared components ───────────────────────────────────────────────────────
+
 function RevealSection({
   children,
   className,
@@ -51,7 +63,11 @@ function RevealSection({
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.55, delay, ease: [0.25, 0.1, 0.25, 1] },
+          transition: {
+            duration: 0.55,
+            delay,
+            ease: [0.25, 0.1, 0.25, 1] as const,
+          },
         },
       }}
       className={className}
@@ -61,9 +77,52 @@ function RevealSection({
   );
 }
 
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <RevealSection>
+      <h2 className="text-xl font-semibold text-primary">{children}</h2>
+    </RevealSection>
+  );
+}
+
+function Divider({ label }: { label: string }) {
+  return (
+    <RevealSection>
+      <div className="flex items-center gap-3">
+        <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800" />
+        <span className="text-xs tracking-widest uppercase text-muted-foreground">
+          {label}
+        </span>
+        <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800" />
+      </div>
+    </RevealSection>
+  );
+}
+
+// ── Status badge styles ─────────────────────────────────────────────────────
+
+const statusStyles: Record<string, string> = {
+  "In Development":
+    "bg-amber-500/10 border-amber-500/25 text-amber-600 dark:text-amber-400",
+  Live: "bg-green-500/10 border-green-500/25 text-green-600 dark:text-green-400",
+  Completed:
+    "bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400",
+};
+
+const skillAccents = [
+  "border-l-green-500",
+  "border-l-blue-400",
+  "border-l-violet-400",
+  "border-l-amber-400",
+  "border-l-zinc-400",
+];
+
+// ── Page ────────────────────────────────────────────────────────────────────
+
 export default function Home() {
   return (
     <main className="flex flex-col flex-1 font-sans dark:bg-black">
+      {/* ── Hero ── */}
       <section id="home" className="flex flex-col gap-6 py-16 md:pt-8 md:pb-20">
         <motion.div
           custom={0}
@@ -115,6 +174,7 @@ export default function Home() {
             />
           </span>
         </motion.h1>
+
         <motion.p
           custom={3}
           variants={fadeUp}
@@ -122,7 +182,7 @@ export default function Home() {
           animate="visible"
           className="leading-8 text-base text-muted-foreground dark:text-zinc-400"
         >
-          I build fast, production-ready web apps that ship to real users - with
+          I build fast, production-ready web apps that ship to real users — with
           Next.js, TypeScript, and a backend that can handle it.
         </motion.p>
 
@@ -138,15 +198,14 @@ export default function Home() {
 
       {/* ── Marquee ── */}
       <motion.div
-        id="marquee"
         variants={fadeIn}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         className="py-10 border-y border-zinc-100 dark:border-zinc-800"
-        aria-label="Tech stack"
+        aria-label="Tech stack marquee"
       >
-        <Marquee gradient={true} gradientWidth={120} speed={40}>
+        <Marquee gradient gradientWidth={120} speed={40}>
           {techStack.map(({ name, Icon }) => (
             <div
               key={name}
@@ -164,52 +223,20 @@ export default function Home() {
         id="about"
         className="leading-8 text-base text-muted-foreground py-24 flex flex-col gap-6"
       >
-        <RevealSection>
-          <h2 className="text-xl font-semibold mb-3 text-primary">About</h2>
-        </RevealSection>
+        <SectionHeading>About</SectionHeading>
 
-        <RevealSection delay={0.1}>
-          <p>
-            I started writing code in 2021 with a 3-month bootcamp — and I
-            haven&apos;t stopped since. What began as structured learning
-            quickly became self-directed obsession: reading documentation,
-            building real projects, breaking things, and fixing them at 2 AM.
-          </p>
-        </RevealSection>
+        {[
+          "I started writing code in 2021 with a 3-month bootcamp — and I haven't stopped since. What began as structured learning quickly became self-directed obsession: reading documentation, building real projects, breaking things, and fixing them at 2 AM.",
+          "I'm a full-stack developer with hands-on experience shipping web applications that handle real users and real money. I built a healthcare platform for a non-profit organisation serving communities across Nigeria — complete with authentication, Paystack donation flows, an admin dashboard, and full SEO optimisation. I'm also the solo developer behind Zewerk, an ambitious blue-collar worker marketplace for the Nigerian market, built on a production-grade backend with PostgreSQL, Prisma, Redis, Socket.io, and an escrow payment system.",
+          "I started with JavaScript, PHP and SQL, moved through the MERN stack, and now work primarily with Next.js, TypeScript, Express, PostgreSQL, and Prisma — tools I chose deliberately because they're what production teams actually use.",
+          "Alongside my development work, I'm pursuing a BSc in Computer Science at IU International University of Applied Sciences (Germany), which has deepened my foundations in algorithms, data structures, and software engineering principles.",
+        ].map((text, i) => (
+          <RevealSection key={i} delay={0.05}>
+            <p>{text}</p>
+          </RevealSection>
+        ))}
 
-        <RevealSection delay={0.1}>
-          <p>
-            I&apos;m a full-stack developer with hands-on experience shipping
-            web applications that handle real users and real money. I built a
-            healthcare platform for a non-profit organisation serving
-            communities across Nigeria — complete with authentication, Paystack
-            donation flows, an admin dashboard, and full SEO optimisation.
-            I&apos;m also the solo developer behind Zewerk, an ambitious
-            blue-collar worker marketplace for the Nigerian market, built on a
-            production-grade backend with PostgreSQL, Prisma, Redis, Socket.io,
-            and an escrow payment system.
-          </p>
-        </RevealSection>
-
-        <RevealSection delay={0.1}>
-          <p>
-            I started with JavaScript, PHP and SQL, moved through the MERN
-            stack, and now work primarily with Next.js, TypeScript, Express,
-            PostgreSQL, and Prisma — tools I chose deliberately because
-            they&apos;re what production teams actually use.
-          </p>
-        </RevealSection>
-
-        <RevealSection delay={0.1}>
-          <p>
-            Alongside my development work, I&apos;m pursuing a BSc in Computer
-            Science at IU International University of Applied Sciences
-            (Germany), which has deepened my foundations in algorithms, data
-            structures, and software engineering principles.
-          </p>
-        </RevealSection>
-
-        <RevealSection delay={0.1}>
+        <RevealSection delay={0.05}>
           <p className="border-l-2 border-green-500 pl-4">
             I don&apos;t have a big company name on my CV yet — but I have
             shipped code, solved hard problems, and built things from scratch
@@ -220,17 +247,9 @@ export default function Home() {
           </p>
         </RevealSection>
 
-        <RevealSection delay={0.1}>
-          <div className="flex items-center gap-3 mt-2">
-            <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800" />
-            <span className="text-xs tracking-widest uppercase">
-              Quick facts
-            </span>
-            <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800" />
-          </div>
-        </RevealSection>
+        <Divider label="Quick facts" />
 
-        <div className="leading-4 grid grid-cols-1 gap-2.5">
+        <div className="grid grid-cols-1 gap-2.5">
           {facts.map(({ icon, label, value }, i) => (
             <motion.div
               key={label}
@@ -256,33 +275,29 @@ export default function Home() {
       {/* ── Experience ── */}
       <section
         id="experience"
-        className="py-24 flex flex-col gap-8 border-t border-zinc-100 dark:border-zinc-800"
+        className="py-24 flex flex-col gap-6 border-t border-zinc-100 dark:border-zinc-800"
       >
-        <h2 className="text-xl font-semibold mb-3 text-primary">Experience</h2>
+        <SectionHeading>Experience</SectionHeading>
 
-        <div className="relative flex flex-col gap-0 ml-3">
-          <div className="absolute left-0 top-2 bottom-2 w-px bg-zinc-200 dark:bg-zinc-700" />
-
-          {experience.map((job) => (
-            <div key={job.company} className="relative pl-8 pb-10 last:pb-0">
-              <div className="absolute left-[-4.5px] top-1.5 w-2.25 h-2.25 rounded-full bg-green-500 ring-2 ring-white dark:ring-black" />
-
-              <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
+          {experience.map((job, i) => (
+            <RevealSection key={job.company} delay={i * 0.1}>
+              <div className="p-5 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 flex flex-col gap-3">
                 <div className="flex items-start justify-between gap-3 flex-wrap">
-                  <div>
-                    <p className="text-sm font-semibold text-primary leading-snug">
+                  <div className="flex flex-col gap-0.5">
+                    <p className="text-sm font-medium text-primary">
                       {job.role}
                     </p>
-                    <p className="text-sm text-muted-foreground mt-0.5">
+                    <p className="text-sm text-muted-foreground">
                       {job.company}
                     </p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <span
-                      className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                      className={`text-xs px-2 py-0.5 rounded-full font-medium border ${
                         job.type === "Pro Bono"
-                          ? "bg-green-500/10 border border-green-500/25 text-green-600 dark:text-green-400"
-                          : "bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400"
+                          ? "bg-green-500/10 border-green-500/25 text-green-600 dark:text-green-400"
+                          : "bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400"
                       }`}
                     >
                       {job.type}
@@ -292,25 +307,22 @@ export default function Home() {
                     </span>
                   </div>
                 </div>
-
-                {/* Description */}
+                <div className="h-px bg-zinc-100 dark:bg-zinc-800" />
                 <p className="text-sm text-muted-foreground leading-6">
                   {job.description}
                 </p>
-
-                {/* Stack */}
                 <div className="flex flex-wrap gap-1.5">
                   {job.stack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 rounded text-xs bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 font-mono"
+                      className="px-2 py-0.5 rounded text-xs bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 font-mono"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
               </div>
-            </div>
+            </RevealSection>
           ))}
         </div>
       </section>
@@ -318,25 +330,15 @@ export default function Home() {
       {/* ── Skills ── */}
       <section
         id="skills"
-        className="py-24 flex flex-col gap-8 border-t border-zinc-100 dark:border-zinc-800"
+        className="py-24 flex flex-col gap-6 border-t border-zinc-100 dark:border-zinc-800"
       >
-        <h2 className="text-xl font-semibold mb-3 text-primary">Skills</h2>
+        <SectionHeading>Skills</SectionHeading>
 
         <div className="flex flex-col gap-3">
-          {techSkills.map((category, i) => {
-            const accentColors = [
-              "border-green-500",
-              "border-blue-400",
-              "border-violet-400",
-              "border-amber-400",
-              "border-zinc-400",
-            ];
-            const accent = accentColors[i % accentColors.length];
-
-            return (
+          {techSkills.map((category, i) => (
+            <RevealSection key={category.title} delay={i * 0.07}>
               <div
-                key={category.title}
-                className={`flex flex-col sm:flex-row sm:items-start gap-3 px-4 py-3.5 rounded-lg border-l-2 ${accent} bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-100 dark:border-zinc-800`}
+                className={`flex flex-col sm:flex-row sm:items-start gap-3 px-4 py-3.5 rounded-lg border border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 border-l-2 ${skillAccents[i % skillAccents.length]}`}
               >
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider w-28 shrink-0 pt-0.5">
                   {category.title}
@@ -352,17 +354,180 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-            );
-          })}
+            </RevealSection>
+          ))}
         </div>
       </section>
 
       {/* ── Projects ── */}
-      <section
+      {/* <section
         id="projects"
         className="py-24 flex flex-col gap-6 border-t border-zinc-100 dark:border-zinc-800"
       >
-        <h2 className="text-xl font-semibold mb-3 text-primary">Projects</h2>
+        <RevealSection>
+          <div className="flex items-end justify-between">
+            <h2 className="text-xl font-semibold text-primary">Projects</h2>
+            <p className="text-xs text-muted-foreground">{projects.length} projects</p>
+          </div>
+        </RevealSection>
+
+        <div className="flex flex-col gap-4">
+          {projects.map((project, i) => (
+            <RevealSection key={project.slug} delay={i * 0.1}>
+              <div className="group flex flex-col gap-4 p-5 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors duration-200">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-sm font-semibold text-primary">{project.name}</h3>
+                      <span
+                        className={`text-[11px] px-2 py-0.5 rounded-full border font-medium ${statusStyles[project.status] ?? ""}`}
+                      >
+                        {project.status}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {project.role} · {project.period}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {project.githubUrl && (
+                      
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="GitHub"
+                        className="flex items-center justify-center w-7 h-7 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+                      >
+                        <Github size={14} />
+                      </a>
+                    )}
+                    {project.liveUrl && (
+                      
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Live site"
+                        className="flex items-center justify-center w-7 h-7 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+                      >
+                        <Globe size={14} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <div className="w-full h-44 rounded-md overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+                  {project.imageUrl ? (
+                    <img
+                      src={project.imageUrl}
+                      alt={`${project.name} preview`}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <span className="text-xs text-zinc-400 dark:text-zinc-600">
+                        Preview coming soon
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <p className="text-sm text-muted-foreground leading-6">{project.description}</p>
+
+                <div className="flex flex-wrap gap-1.5">
+                  {project.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-0.5 rounded text-xs bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 font-mono"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="pt-1 border-t border-zinc-100 dark:border-zinc-800">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors"
+                  >
+                    View case study
+                    <ArrowUpRight size={13} />
+                  </Link>
+                </div>
+              </div>
+            </RevealSection>
+          ))}
+        </div>
+      </section> */}
+
+      {/* ── Contact ── */}
+      <section
+        id="contact"
+        className="py-24 flex flex-col gap-6 border-t border-zinc-100 dark:border-zinc-800"
+      >
+        <SectionHeading>Let&apos;s Work Together</SectionHeading>
+
+        <RevealSection delay={0.1}>
+          <p className="text-base text-muted-foreground leading-8">
+            I&apos;m currently open to remote junior and mid-level software
+            engineering roles — full-time, contract, or internship. If
+            you&apos;re building something interesting and need a developer who
+            takes ownership, writes clean code, and shows up consistently —
+            let&apos;s talk.
+          </p>
+        </RevealSection>
+
+        <RevealSection delay={0.15}>
+          <a
+            href="mailto:emmanuel.devpro@gmail.com"
+            className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-colors duration-200 w-fit"
+          >
+            <Mail size={15} />
+            Send me a message
+            <ArrowUpRight
+              size={14}
+              className="opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-150"
+            />
+          </a>
+        </RevealSection>
+
+        <Divider label="Or find me on" />
+
+        <RevealSection delay={0.2}>
+          <div className="grid grid-cols-1 gap-2.5">
+            {socialLinks.map(({ icon, label, value, href }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("mailto") ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-4 py-3 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors duration-200 group"
+              >
+                <div className="flex items-center justify-center w-8 h-8 rounded-md bg-green-500/10 border border-green-500/25 shrink-0 text-green-600 dark:text-green-400">
+                  {icon}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[11px] text-muted-foreground mb-0.5">
+                    {label}
+                  </p>
+                  <p className="text-sm text-primary leading-snug truncate">
+                    {value}
+                  </p>
+                </div>
+                <ArrowUpRight
+                  size={13}
+                  className="text-zinc-300 dark:text-zinc-600 group-hover:text-zinc-500 dark:group-hover:text-zinc-400 transition-colors shrink-0"
+                />
+              </a>
+            ))}
+          </div>
+        </RevealSection>
+
+        <RevealSection delay={0.25}>
+          <p className="text-xs text-muted-foreground text-center pt-8 pb-4">
+            Designed &amp; built by Emmanuel Chukwu &middot;{" "}
+            {new Date().getFullYear()}
+          </p>
+        </RevealSection>
       </section>
     </main>
   );

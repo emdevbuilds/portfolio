@@ -29,36 +29,36 @@ const Navbar = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   useEffect(() => {
-    const sectionIds = navItems
-      .map((i) => i.section)
-      .filter((s) => s !== "home");
-
-    const observers: IntersectionObserver[] = [];
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(id);
-        },
-        { threshold: 0.4 },
-      );
-
-      observer.observe(el);
-      observers.push(observer);
-    });
+    const sectionIds = navItems.map((i) => i.section);
 
     const handleScroll = () => {
-      if (window.scrollY < 80) setActiveSection("home");
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
+      if (window.scrollY < 80) {
+        setActiveSection("home");
+        return;
+      }
 
-    return () => {
-      observers.forEach((o) => o.disconnect());
-      window.removeEventListener("scroll", handleScroll);
+      const scrollMidpoint = window.innerHeight * 0.6;
+
+      const visible = sectionIds
+        .filter((id) => id !== "home")
+        .map((id) => {
+          const el = document.getElementById(id);
+          if (!el) return { id, top: Infinity };
+          return { id, top: el.getBoundingClientRect().top };
+        })
+        .filter(({ top }) => top <= scrollMidpoint);
+
+      if (visible.length === 0) return;
+
+      // The last section whose top is above the midpoint is the active one
+      const active = visible[visible.length - 1];
+      setActiveSection(active.id);
     };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // run once on mount
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (

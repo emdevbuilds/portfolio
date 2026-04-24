@@ -11,58 +11,138 @@ import { techStack } from "@/lib/techStack";
 import { facts } from "@/lib/facts";
 import { techSkills } from "@/lib/techSkills";
 import { experience } from "@/lib/experience";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay: i * 0.08,
+      ease: [0.25, 0.1, 0.25, 1] as const,
+    },
+  }),
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6 } },
+};
+
+// Wrapper that triggers animation when scrolled into view
+function RevealSection({
+  children,
+  className,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15 }}
+      variants={{
+        hidden: { opacity: 0, y: 28 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.55, delay, ease: [0.25, 0.1, 0.25, 1] },
+        },
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export default function Home() {
   return (
     <main className="flex flex-col flex-1 font-sans dark:bg-black">
       <section id="home" className="flex flex-col gap-6 py-16 md:pt-8 md:pb-20">
-        <div>
+        <motion.div
+          custom={0}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+        >
           <ZoomableImage
             src="/emmanuel.jpg"
             alt="Emmanuel Chukwu profile picture"
             className="rounded-full ring-2 ring-green-500 p-1 w-24 h-24"
           />
-        </div>
+        </motion.div>
 
-        <div className="flex font-medium w-fit items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-3 py-1 text-sm text-green-600 dark:text-green-400">
+        <motion.div
+          custom={1}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="flex font-medium w-fit items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-3 py-1 text-sm text-green-600 dark:text-green-400"
+        >
           <BriefcaseBusiness size={14} />
           <span>Open to work</span>
-        </div>
+        </motion.div>
 
-        <h1 className="text-2xl font-semibold leading-10 tracking-normal text-primary">
+        <motion.h1
+          custom={2}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="text-2xl font-semibold leading-10 tracking-normal text-primary"
+        >
           Hi, I&apos;m Emmanuel Chukwu <br />
           <span className="text-green-600">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
+                  .pauseFor(400)
                   .typeString("Software Engineer")
                   .callFunction(() => {
                     const cursor = document.querySelector(
                       ".Typewriter__cursor",
                     ) as HTMLElement;
-                    if (cursor) {
-                      cursor.style.display = "none";
-                    }
+                    if (cursor) cursor.style.display = "none";
                   })
                   .start();
               }}
-              options={{
-                autoStart: true,
-                loop: false,
-                delay: 75,
-              }}
+              options={{ autoStart: true, loop: false, delay: 75 }}
             />
           </span>
-        </h1>
-        <p className="leading-8 text-base text-muted-foreground dark:text-zinc-400">
+        </motion.h1>
+        <motion.p
+          custom={3}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="leading-8 text-base text-muted-foreground dark:text-zinc-400"
+        >
           I build fast, production-ready web apps that ship to real users - with
           Next.js, TypeScript, and a backend that can handle it.
-        </p>
-        <CtaButtons />
+        </motion.p>
+
+        <motion.div
+          custom={4}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+        >
+          <CtaButtons />
+        </motion.div>
       </section>
 
-      <div
+      {/* ── Marquee ── */}
+      <motion.div
         id="marquee"
+        variants={fadeIn}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
         className="py-10 border-y border-zinc-100 dark:border-zinc-800"
         aria-label="Tech stack"
       >
@@ -77,60 +157,88 @@ export default function Home() {
             </div>
           ))}
         </Marquee>
-      </div>
+      </motion.div>
 
       {/* ── About ── */}
       <section
         id="about"
         className="leading-8 text-base text-muted-foreground py-24 flex flex-col gap-6"
       >
-        <h2 className="text-xl font-semibold mb-3 text-primary">About</h2>
-        <p>
-          I started writing code in 2021 with a 3-month bootcamp — and I
-          haven&apos;t stopped since. What began as structured learning quickly
-          became self-directed obsession: reading documentation, building real
-          projects, breaking things, and fixing them at 2 AM.
-        </p>
-        <p>
-          I&apos;m a full-stack developer with hands-on experience shipping web
-          applications that handle real users and real money. I built a
-          healthcare platform for a non-profit organisation serving communities
-          across Nigeria — complete with authentication, Paystack donation
-          flows, an admin dashboard, and full SEO optimisation. I&apos;m also
-          the solo developer behind Zewerk, an ambitious blue-collar worker
-          marketplace for the Nigerian market, built on a production-grade
-          backend with PostgreSQL, Prisma, Redis, Socket.io, and an escrow
-          payment system.
-        </p>
-        <p>
-          I started with JavaScript, PHP and SQL, moved through the MERN stack,
-          and now work primarily with Next.js, TypeScript, Express, PostgreSQL,
-          and Prisma — tools I chose deliberately because they&apos;re what
-          production teams actually use.
-        </p>
-        <p>
-          Alongside my development work, I&apos;m pursuing a BSc in Computer
-          Science at IU International University of Applied Sciences (Germany),
-          which has deepened my foundations in algorithms, data structures, and
-          software engineering principles.
-        </p>
-        <p className="border-l-2 border-green-500 pl-4">
-          I don&apos;t have a big company name on my CV yet — but I have shipped
-          code, solved hard problems, and built things from scratch that
-          actually work. I&apos;m looking for a remote role — or an onsite
-          position with visa sponsorship — where I can contribute from day one,
-          grow fast, and be part of a team that takes their craft seriously.
-        </p>
+        <RevealSection>
+          <h2 className="text-xl font-semibold mb-3 text-primary">About</h2>
+        </RevealSection>
 
-        <div className="flex items-center gap-3 mt-2">
-          <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800" />
-          <span className="text-xs tracking-widest uppercase">Quick facts</span>
-          <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800" />
-        </div>
+        <RevealSection delay={0.1}>
+          <p>
+            I started writing code in 2021 with a 3-month bootcamp — and I
+            haven&apos;t stopped since. What began as structured learning
+            quickly became self-directed obsession: reading documentation,
+            building real projects, breaking things, and fixing them at 2 AM.
+          </p>
+        </RevealSection>
+
+        <RevealSection delay={0.1}>
+          <p>
+            I&apos;m a full-stack developer with hands-on experience shipping
+            web applications that handle real users and real money. I built a
+            healthcare platform for a non-profit organisation serving
+            communities across Nigeria — complete with authentication, Paystack
+            donation flows, an admin dashboard, and full SEO optimisation.
+            I&apos;m also the solo developer behind Zewerk, an ambitious
+            blue-collar worker marketplace for the Nigerian market, built on a
+            production-grade backend with PostgreSQL, Prisma, Redis, Socket.io,
+            and an escrow payment system.
+          </p>
+        </RevealSection>
+
+        <RevealSection delay={0.1}>
+          <p>
+            I started with JavaScript, PHP and SQL, moved through the MERN
+            stack, and now work primarily with Next.js, TypeScript, Express,
+            PostgreSQL, and Prisma — tools I chose deliberately because
+            they&apos;re what production teams actually use.
+          </p>
+        </RevealSection>
+
+        <RevealSection delay={0.1}>
+          <p>
+            Alongside my development work, I&apos;m pursuing a BSc in Computer
+            Science at IU International University of Applied Sciences
+            (Germany), which has deepened my foundations in algorithms, data
+            structures, and software engineering principles.
+          </p>
+        </RevealSection>
+
+        <RevealSection delay={0.1}>
+          <p className="border-l-2 border-green-500 pl-4">
+            I don&apos;t have a big company name on my CV yet — but I have
+            shipped code, solved hard problems, and built things from scratch
+            that actually work. I&apos;m looking for a remote role — or an
+            onsite position with visa sponsorship — where I can contribute from
+            day one, grow fast, and be part of a team that takes their craft
+            seriously.
+          </p>
+        </RevealSection>
+
+        <RevealSection delay={0.1}>
+          <div className="flex items-center gap-3 mt-2">
+            <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800" />
+            <span className="text-xs tracking-widest uppercase">
+              Quick facts
+            </span>
+            <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800" />
+          </div>
+        </RevealSection>
+
         <div className="leading-4 grid grid-cols-1 gap-2.5">
-          {facts.map(({ icon, label, value }) => (
-            <div
+          {facts.map(({ icon, label, value }, i) => (
+            <motion.div
               key={label}
+              custom={i}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
               className="flex items-center gap-3 px-4 py-3 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800"
             >
               <div className="flex items-center justify-center w-8 h-8 rounded-md bg-green-500/10 border border-green-500/25 shrink-0 text-green-600 dark:text-green-400">
@@ -140,7 +248,7 @@ export default function Home() {
                 <p className="text-[11px] mb-0.5">{label}</p>
                 <p className="text-sm text-primary leading-snug">{value}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>

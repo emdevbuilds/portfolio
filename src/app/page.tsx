@@ -4,20 +4,14 @@ import React from "react";
 import Typewriter from "typewriter-effect";
 import ZoomableImage from "@/components/ZoomableImage";
 import Marquee from "react-fast-marquee";
-import {
-  BriefcaseBusiness,
-  ArrowUpRight,
-  Github,
-  Globe,
-  Mail,
-  Linkedin,
-} from "lucide-react";
+import { BriefcaseBusiness, ArrowUpRight, Globe, Mail } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import CtaButtons from "@/components/CtaButton";
 import { techStack } from "@/lib/techStack";
 import { facts } from "@/lib/facts";
 import { techSkills } from "@/lib/techSkills";
 import { experience } from "@/lib/experience";
-import { projects } from "@/lib/projects";
+// import { projects } from "@/lib/projects";
 import { socialLinks } from "@/lib/socialLinks";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -398,7 +392,7 @@ export default function Home() {
                         aria-label="GitHub"
                         className="flex items-center justify-center w-7 h-7 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
                       >
-                        <Github size={14} />
+                        <FaGithub size={14} />
                       </a>
                     )}
                     {project.liveUrl && (
@@ -521,14 +515,13 @@ export default function Home() {
             ))}
           </div>
         </RevealSection>
-
-        <RevealSection delay={0.25}>
-          <p className="text-xs text-muted-foreground text-center pt-8 pb-4">
-            Designed &amp; built by Emmanuel Chukwu &middot;{" "}
-            {new Date().getFullYear()}
-          </p>
-        </RevealSection>
       </section>
+      <RevealSection delay={0.25}>
+        <p className="text-xs text-muted-foreground text-center pb-4 md:pb-8">
+          Designed &amp; built by Emmanuel Chukwu &middot;{" "}
+          {new Date().getFullYear()}
+        </p>
+      </RevealSection>
     </main>
   );
 }

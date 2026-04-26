@@ -30,7 +30,7 @@ export const projects: Project[] = [
     status: "Live",
     role: "Solo Developer · Pro Bono",
     period: "Aug 2025 – Jan 2026",
-    imageUrl: "/projects/ounuu-preview.png",
+    imageUrl: "/projects/ounuu-health-alliance-preview.png",
     stack: [
       "Next.js 15",
       "TypeScript",

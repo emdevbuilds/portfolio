@@ -427,7 +427,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="w-full h-44 rounded-md overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 relative">
+                  <div className="w-full rounded-md overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 relative aspect-video">
                     {project.imageUrl ? (
                       <Image
                         src={project.imageUrl}

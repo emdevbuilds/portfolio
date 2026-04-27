@@ -2,20 +2,27 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Typewriter from "typewriter-effect";
-import ZoomableImage from "@/components/ZoomableImage";
 import Marquee from "react-fast-marquee";
-import { BriefcaseBusiness, ArrowUpRight, Globe, Mail } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  BriefcaseBusiness,
+  ArrowUpRight,
+  ArrowRight,
+  Globe,
+  Mail,
+} from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import CtaButtons from "@/components/CtaButton";
 import { techStack } from "@/lib/techStack";
 import { facts } from "@/lib/facts";
 import { techSkills } from "@/lib/techSkills";
 import { experience } from "@/lib/experience";
 import { projects } from "@/lib/projects";
 import { socialLinks } from "@/lib/socialLinks";
-import { motion } from "framer-motion";
-import Link from "next/link";
+import ZoomableImage from "@/components/ZoomableImage";
+import CtaButtons from "@/components/CtaButton";
+import ProjectCard from "@/components/ProjectCard";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -347,110 +354,32 @@ export default function Home() {
       </section>
 
       {/* ── Projects ── */}
-      <section
-        id="projects"
-        className="py-24 flex flex-col gap-6 border-t border-zinc-100 dark:border-zinc-800"
-      >
-        <RevealSection>
-          <div className="flex items-end justify-between">
-            <h2 className="text-xl font-semibold text-primary">Projects</h2>
-            <p className="text-xs text-muted-foreground">
-              {projects.length} projects
-            </p>
-          </div>
-        </RevealSection>
+      <section id="projects" className="py-24">
+        {/* Header Section */}
+        <div className="flex flex-col gap-4 mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Featured Projects
+          </h2>
+          <p className="text-muted-foreground max-w-lg">
+            A selection of my professional work and personal experiments.
+          </p>
+        </div>
 
-        <div className="flex flex-col gap-4">
-          {projects.map((project, i) => (
-            <RevealSection key={project.slug} delay={i * 0.1}>
-              <div className="group flex flex-col gap-4 p-5 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors duration-200">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="text-sm font-semibold text-primary">
-                        {project.name}
-                      </h3>
-                      <span
-                        className={`text-[11px] px-2 py-0.5 rounded-full border font-medium ${statusStyles[project.status] ?? ""}`}
-                      >
-                        {project.status}
-                      </span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      {project.role} · {project.period}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1.5 shrink-0">
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub"
-                        className="flex items-center justify-center w-7 h-7 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
-                      >
-                        <FaGithub size={14} />
-                      </a>
-                    )}
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Live site"
-                        className="flex items-center justify-center w-7 h-7 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
-                      >
-                        <Globe size={14} />
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                <div className="w-full rounded-md overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 relative aspect-video">
-                  {project.imageUrl ? (
-                    <Image
-                      src={project.imageUrl}
-                      alt={`${project.name} preview`}
-                      fill
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-xs text-zinc-400 dark:text-zinc-600">
-                        Preview coming soon
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                <p className="text-sm text-muted-foreground leading-6">
-                  {project.description}
-                </p>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {project.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-0.5 rounded text-xs bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 font-mono"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="pt-1 border-t border-zinc-100 dark:border-zinc-800">
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors"
-                  >
-                    View case study
-                    <ArrowUpRight size={13} />
-                  </Link>
-                </div>
-              </div>
-            </RevealSection>
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projects.slice(0, 4).map((project) => (
+            <ProjectCard key={project.slug} project={project} />
           ))}
+        </div>
+
+        {/* Bottom Action */}
+        <div className="mt-12 flex justify-center">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-sm font-medium hover:scale-105 transition-transform"
+          >
+            View all projects <ArrowRight size={14} />
+          </Link>
         </div>
       </section>
 

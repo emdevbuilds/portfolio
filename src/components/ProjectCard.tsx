@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Globe } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
@@ -26,7 +29,13 @@ const statusStyles: Record<string, string> = {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <div className="group flex flex-col rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-200 dark:hover:border-zinc-700 hover:shadow-xl hover:shadow-zinc-100/60 dark:hover:shadow-zinc-950/60 transition-all duration-300 overflow-hidden">
+    <motion.div
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.985 }}
+      transition={{ type: "spring", stiffness: 400, damping: 28 }}
+      className="group flex flex-col rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-200 dark:hover:border-zinc-700 hover:shadow-xl hover:shadow-zinc-100/60 dark:hover:shadow-zinc-950/60 transition-[border-color,box-shadow] duration-300 overflow-hidden"
+    >
+      {" "}
       {/* Image */}
       <div className="relative w-full aspect-video bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
         {project.imageUrl ? (
@@ -51,7 +60,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </span>
         </div>
       </div>
-
       {/* Body */}
       <div className="flex flex-col gap-3 p-5 flex-1">
         <div>
@@ -106,6 +114,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

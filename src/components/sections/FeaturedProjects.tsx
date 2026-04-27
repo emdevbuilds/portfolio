@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import {
   SectionHeading,
   RevealSection,
@@ -41,18 +42,20 @@ export default function FeaturedProjects() {
         ))}
       </StaggeredGrid>
 
-      {/* CTA */}
+      {/* CTA — matches CtaButtons primary style */}
       <RevealSection delay={0.1} className="flex justify-center mt-2">
-        <Link
-          href="/projects"
-          className="group inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-900 text-sm font-semibold transition-all duration-200 hover:shadow-lg hover:shadow-zinc-200 dark:hover:shadow-zinc-900"
-        >
-          View all projects
-          <ArrowRight
-            size={14}
-            className="transition-transform duration-200 group-hover:translate-x-0.5"
-          />
-        </Link>
+        <motion.div whileTap={{ scale: 0.97 }}>
+          <Link
+            href="/projects"
+            className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-600 hover:bg-green-700 active:bg-green-800 text-white text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-zinc-950"
+          >
+            View all projects
+            <ArrowRight
+              size={14}
+              className="transition-transform duration-200 group-hover:translate-x-1"
+            />
+          </Link>
+        </motion.div>
       </RevealSection>
     </section>
   );

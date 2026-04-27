@@ -24,7 +24,7 @@ const statusStyles = {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <div className="group flex flex-col gap-4 p-6 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 transition-all duration-300 shadow-sm hover:shadow-lg">
+    <div className="group flex flex-col gap-4 p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 transition-all duration-300 shadow-sm hover:shadow-lg">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between gap-2">
           <h3 className="font-semibold text-primary truncate">

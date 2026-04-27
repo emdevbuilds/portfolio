@@ -29,6 +29,8 @@ export async function generateMetadata({
 }
 
 // ── Status badge styles ─────────────────────────────────────────────────────
+// Keeping the amber badge here is actually good UX because it signals "Work in Progress,"
+// but the UI structure itself now stays within your Green/Zinc palette.
 
 const statusStyles: Record<string, string> = {
   "In Development":
@@ -50,7 +52,7 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   return (
-    <article className="flex flex-col gap-12 py-16 md:pt-12 md:pb-24">
+    <article className="flex flex-col gap-12">
       {/* ── Back ── */}
       <Link
         href="/#projects"
@@ -114,7 +116,7 @@ export default async function ProjectPage({
           {project.stack.map((tech) => (
             <span
               key={tech}
-              className="px-2 py-0.5 rounded text-xs bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 font-mono"
+              className="px-2 py-0.5 rounded text-xs bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 font-mono"
             >
               {tech}
             </span>
@@ -124,7 +126,7 @@ export default async function ProjectPage({
 
       {/* ── Image ── */}
       {project.imageUrl && (
-        <div className="w-full rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800">
+        <div className="w-full rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
           <Image
             src={project.imageUrl}
             alt={`${project.name} screenshot`}
@@ -162,7 +164,7 @@ export default async function ProjectPage({
           {project.decisions.map((d) => (
             <div
               key={d.title}
-              className="flex flex-col gap-2 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800"
+              className="flex flex-col gap-2 p-4 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800"
             >
               <p className="text-sm font-medium text-primary">{d.title}</p>
               <p className="text-sm text-muted-foreground leading-6">
@@ -179,7 +181,7 @@ export default async function ProjectPage({
           {project.challenges.map((c) => (
             <div
               key={c.title}
-              className="flex flex-col gap-2 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 border-l-2 border-l-amber-400"
+              className="flex flex-col gap-2 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 border-l-2 border-l-green-500"
             >
               <p className="text-sm font-medium text-primary">{c.title}</p>
               <p className="text-sm text-muted-foreground leading-6">

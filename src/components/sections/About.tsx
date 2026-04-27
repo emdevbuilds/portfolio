@@ -61,7 +61,7 @@ export default function About() {
                 <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-600 mb-0.5">
                   {label}
                 </p>
-                <p className="text-sm text-zinc-800 dark:text-zinc-200 leading-snug truncate">
+                <p className="text-sm text-zinc-800 dark:text-zinc-200 leading-snug">
                   {value}
                 </p>
               </div>

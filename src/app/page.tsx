@@ -366,7 +366,7 @@ export default function Home() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.slice(0, 4).map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
@@ -376,7 +376,9 @@ export default function Home() {
         <div className="mt-12 flex justify-center">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-sm font-medium hover:scale-105 transition-transform"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full 
+             bg-green-600 hover:bg-green-700 text-white 
+             text-sm font-medium transition-all hover:scale-105"
           >
             View all projects <ArrowRight size={14} />
           </Link>

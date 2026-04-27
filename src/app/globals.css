@@ -131,7 +131,22 @@
     @apply bg-background text-foreground;
   }
   html {
-    scroll-behavior: smooth;
     @apply font-sans;
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  section {
+    @apply py-16 md:py-24;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply tracking-tight font-semibold;
+  }
+
+  p {
+    @apply leading-7 md:leading-8;
   }
 }

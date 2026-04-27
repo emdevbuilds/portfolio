@@ -17,8 +17,6 @@ import { socialLinks } from "@/lib/socialLinks";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-// ── Animation variants ──────────────────────────────────────────────────────
-
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number = 0) => ({
@@ -36,8 +34,6 @@ const fadeIn = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.6 } },
 };
-
-// ── Shared components ───────────────────────────────────────────────────────
 
 function RevealSection({
   children,
@@ -94,8 +90,6 @@ function Divider({ label }: { label: string }) {
   );
 }
 
-// ── Status badge styles ─────────────────────────────────────────────────────
-
 const statusStyles: Record<string, string> = {
   "In Development":
     "bg-amber-500/10 border-amber-500/25 text-amber-600 dark:text-amber-400",
@@ -111,8 +105,6 @@ const skillAccents = [
   "border-l-amber-400",
   "border-l-zinc-400",
 ];
-
-// ── Page ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
   return (
@@ -371,103 +363,92 @@ export default function Home() {
         <div className="flex flex-col gap-4">
           {projects.map((project, i) => (
             <RevealSection key={project.slug} delay={i * 0.1}>
-              <Link href={`/projects/${project.slug}`}>
-                <div className="group flex flex-col gap-4 p-5 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors duration-200 cursor-pointer">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="text-sm font-semibold text-primary">
-                          {project.name}
-                        </h3>
-                        <span
-                          className={`text-[11px] px-2 py-0.5 rounded-full border font-medium ${statusStyles[project.status] ?? ""}`}
-                        >
-                          {project.status}
-                        </span>
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        {project.role} · {project.period}
-                      </p>
+              <div className="group flex flex-col gap-4 p-5 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors duration-200">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-sm font-semibold text-primary">
+                        {project.name}
+                      </h3>
+                      <span
+                        className={`text-[11px] px-2 py-0.5 rounded-full border font-medium ${statusStyles[project.status] ?? ""}`}
+                      >
+                        {project.status}
+                      </span>
                     </div>
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      {project.githubUrl && (
-                        <div
-                          onClick={(e) => {
-                            e.preventDefault();
-                            window.open(project.githubUrl, "_blank");
-                          }}
-                          className="flex items-center justify-center w-7 h-7 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={(e) =>
-                            e.key === "Enter" &&
-                            window.open(project.githubUrl, "_blank")
-                          }
-                        >
-                          <FaGithub size={14} />
-                        </div>
-                      )}
-                      {project.liveUrl && (
-                        <div
-                          onClick={(e) => {
-                            e.preventDefault();
-                            window.open(project.liveUrl, "_blank");
-                          }}
-                          className="flex items-center justify-center w-7 h-7 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={(e) =>
-                            e.key === "Enter" &&
-                            window.open(project.liveUrl, "_blank")
-                          }
-                        >
-                          <Globe size={14} />
-                        </div>
-                      )}
-                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {project.role} · {project.period}
+                    </p>
                   </div>
-
-                  <div className="w-full rounded-md overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 relative aspect-video">
-                    {project.imageUrl ? (
-                      <Image
-                        src={project.imageUrl}
-                        alt={`${project.name} preview`}
-                        fill
-                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-xs text-zinc-400 dark:text-zinc-600">
-                          Preview coming soon
-                        </span>
-                      </div>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="GitHub"
+                        className="flex items-center justify-center w-7 h-7 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+                      >
+                        <FaGithub size={14} />
+                      </a>
+                    )}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Live site"
+                        className="flex items-center justify-center w-7 h-7 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+                      >
+                        <Globe size={14} />
+                      </a>
                     )}
                   </div>
-
-                  <p className="text-sm text-muted-foreground leading-6">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-0.5 rounded text-xs bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 font-mono"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="pt-1 border-t border-zinc-100 dark:border-zinc-800">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-green-600 dark:text-green-400 group-hover:text-green-700 dark:group-hover:text-green-300 transition-colors">
-                      View case study
-                      <ArrowUpRight size={13} />
-                    </span>
-                  </div>
                 </div>
-              </Link>
+
+                <div className="w-full rounded-md overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 relative aspect-video">
+                  {project.imageUrl ? (
+                    <Image
+                      src={project.imageUrl}
+                      alt={`${project.name} preview`}
+                      fill
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <span className="text-xs text-zinc-400 dark:text-zinc-600">
+                        Preview coming soon
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <p className="text-sm text-muted-foreground leading-6">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-1.5">
+                  {project.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-0.5 rounded text-xs bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 font-mono"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="pt-1 border-t border-zinc-100 dark:border-zinc-800">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors"
+                  >
+                    View case study
+                    <ArrowUpRight size={13} />
+                  </Link>
+                </div>
+              </div>
             </RevealSection>
           ))}
         </div>

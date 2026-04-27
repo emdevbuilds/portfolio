@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { RevealSection } from "@/components/section-components";
 
 export default function Footer() {
@@ -9,9 +10,13 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400 dark:text-zinc-600">
           <p>
             Designed &amp; built by{" "}
-            <span className="text-zinc-600 dark:text-zinc-400 font-medium">
+            <Link
+              href="https://github.com/emdevbuilds"
+              target="_blank"
+              className="text-green-600 dark:text-green-400 hover:underline"
+            >
               Emmanuel Chukwu
-            </span>
+            </Link>
           </p>
           <p className="tabular-nums">{new Date().getFullYear()}</p>
         </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BriefcaseBusiness, ArrowUpRight } from "lucide-react";
 import Typewriter from "typewriter-effect";
 import ZoomableImage from "@/components/ZoomableImage";
 import CtaButtons from "@/components/CtaButton";
@@ -33,12 +32,13 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex flex-col gap-7 pt-4 pb-24 md:pb-32 overflow-hidden"
+      // No overflow-hidden — lets the glow breathe. The glow uses translate
+      // offsets instead of negative position values so it never gets clipped.
+      className="relative flex flex-col gap-7 pt-4 pb-24 md:pb-32"
     >
-      {/* Subtle radial glow in the background */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-green-500/6 blur-3xl"
+        className="pointer-events-none absolute top-0 left-0 w-96 h-96 rounded-full bg-green-500/[0.07] blur-3xl -translate-x-1/2 -translate-y-1/3"
       />
 
       <motion.div
@@ -52,7 +52,7 @@ export default function Hero() {
           <ZoomableImage
             src="/emmanuel.jpg"
             alt="Emmanuel Chukwu profile picture"
-            className="rounded-full ring-2 ring-green-500/70 ring-offset-2 ring-offset-white dark:ring-offset-black p-0 w-[88px] h-[88px] object-cover"
+            className="rounded-full ring-2 ring-green-500/70 ring-offset-2 ring-offset-white dark:ring-offset-black p-0 w-22 h-22 object-cover"
           />
         </motion.div>
 

@@ -1,51 +1,87 @@
+"use client";
+
 import { projects } from "@/lib/projects";
 import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import type { Metadata } from "next";
+import { motion } from "framer-motion";
+import { StaggeredGrid, StaggeredItem } from "@/components/section-components";
 
-export const metadata: Metadata = {
-  title: "Projects — Emmanuel Chukwu",
-  description: "A complete archive of my professional and experimental work.",
+// metadata must be in a server component; move to a layout or keep in page
+// export const metadata: Metadata = { ... }
+
+const ease = [0.16, 1, 0.3, 1] as const;
+
+const headerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+};
+const headerItem = {
+  hidden: { opacity: 0, y: 16, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.55, ease },
+  },
 };
 
 export default function AllProjectsPage() {
   return (
     <div className="flex flex-col gap-16">
       {/* Back link */}
-      <Link
-        href="/"
-        className="inline-flex items-center gap-1.5 text-sm text-zinc-400 dark:text-zinc-600 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors w-fit group"
+      <motion.div
+        initial={{ opacity: 0, x: -8 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4, ease }}
       >
-        <ArrowLeft
-          size={14}
-          className="transition-transform duration-150 group-hover:-translate-x-0.5"
-        />
-        Back to home
-      </Link>
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-sm text-zinc-400 dark:text-zinc-600 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors w-fit group"
+        >
+          <ArrowLeft
+            size={14}
+            className="transition-transform duration-150 group-hover:-translate-x-0.5"
+          />
+          Back to home
+        </Link>
+      </motion.div>
 
       {/* Header */}
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-2">
+      <motion.div
+        className="flex flex-col gap-3"
+        variants={headerContainer}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div variants={headerItem} className="flex items-center gap-2">
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500" />
           <span className="text-xs font-semibold uppercase tracking-[0.18em] text-green-600 dark:text-green-500">
             Projects
           </span>
-        </div>
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+        </motion.div>
+        <motion.h1
+          variants={headerItem}
+          className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50"
+        >
           All Work
-        </h1>
-        <p className="text-base text-zinc-500 dark:text-zinc-400 max-w-sm leading-relaxed">
+        </motion.h1>
+        <motion.p
+          variants={headerItem}
+          className="text-base text-zinc-500 dark:text-zinc-400 max-w-sm leading-relaxed"
+        >
           A complete archive of my professional and experimental work.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Grid — stagger cards in */}
+      <StaggeredGrid className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <StaggeredItem key={project.slug}>
+            <ProjectCard project={project} />
+          </StaggeredItem>
         ))}
-      </div>
+      </StaggeredGrid>
     </div>
   );
 }

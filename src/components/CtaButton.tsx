@@ -30,7 +30,7 @@ export default function CtaButtons() {
       {/* Secondary Action */}
       <motion.div whileTap={{ scale: 0.97 }}>
         <a
-          href="/cv.pdf"
+          href="/Emmanuel_Chukwu_CV.pdf"
           download="Emmanuel_Chukwu_CV.pdf"
           className={cn(
             "group flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-200",

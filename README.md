@@ -1,4 +1,4 @@
-# emmanuelchukwu.dev
+# Emmanuel Chukwu Portfolio Site
 
 Personal portfolio and case study site — built with Next.js 15, TypeScript, and Tailwind CSS.
 

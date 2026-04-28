@@ -30,7 +30,7 @@ const heroItem = {
 export default function Hero() {
   return (
     <section
-      id="/"
+      id="home"
       className="relative flex flex-col gap-7 pt-4 pb-24 md:pb-32"
     >
       <div

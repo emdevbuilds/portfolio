@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, User, Code2, Briefcase, Mail, FolderGit2 } from "lucide-react";
 
@@ -27,6 +27,7 @@ const navItems = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const isHomePage = pathname === "/";
 
   const [activeSection, setActiveSection] = useState("home");
@@ -63,6 +64,36 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
+  // Handle navigation clicks
+  const handleNavigation = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: (typeof navItems)[number],
+  ) => {
+    e.preventDefault();
+
+    // For Home button
+    if (item.section === "home") {
+      if (isHomePage) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setActiveSection("home");
+      } else {
+        router.push("/");
+      }
+      return;
+    }
+
+    // For other sections
+    if (isHomePage) {
+      const element = document.getElementById(item.section);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // If not on home page, navigate to home page with hash
+      router.push(item.href);
+    }
+  };
+
   // Derive active item for non-home pages (e.g. /projects highlights Projects)
   const getIsActive = (item: (typeof navItems)[number]) => {
     if (!isHomePage) {
@@ -83,7 +114,7 @@ export default function Navbar() {
           "dark:shadow-[0_0_0_1px_rgba(255,255,255,0.07),0_8px_40px_rgba(0,0,0,0.5)]",
         ].join(" ")}
       >
-        {/* Inset shine line — fixed: was bg-linear-to-r (invalid) */}
+        {/* Inset shine line */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-3 top-0 h-px rounded-full
@@ -100,17 +131,15 @@ export default function Navbar() {
             <Link
               key={item.name}
               href={item.href}
+              onClick={(e) => handleNavigation(e, item)}
               onMouseEnter={() => setHoveredItem(item.name)}
               onMouseLeave={() => setHoveredItem(null)}
               className="group relative flex h-10 w-10 items-center justify-center rounded-full"
               aria-label={item.name}
             >
-              {/*
-                Two separate layoutIds so the hover bg never "steals"
-                the green active bg and jumps across items.
-              */}
+              {/* Active background */}
               <AnimatePresence>
-                {isActive && (
+                {isActive && item.section && (
                   <motion.div
                     key="active-bg"
                     layoutId="nav-active-bg"
@@ -137,7 +166,7 @@ export default function Navbar() {
 
               {/* Active dot */}
               <AnimatePresence>
-                {isActive && (
+                {isActive && item.section && (
                   <motion.span
                     key="dot"
                     initial={{ scale: 0, opacity: 0 }}
@@ -155,18 +184,14 @@ export default function Navbar() {
               <Icon
                 className={[
                   "relative z-10 h-4.5 w-4.5 transition-colors duration-200",
-                  isActive
+                  isActive && item.section
                     ? "text-green-600 dark:text-green-400"
                     : "text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-800 dark:group-hover:text-zinc-100",
                 ].join(" ")}
-                strokeWidth={isActive ? 2.2 : 1.8}
+                strokeWidth={isActive && item.section ? 2.2 : 1.8}
               />
 
-              {/*
-                Tooltip:
-                - Desktop (top nav):  appears BELOW the nav  → top-[calc(100%+8px)]
-                - Mobile  (bottom nav): appears ABOVE the nav → bottom-[calc(100%+8px)]
-              */}
+              {/* Tooltip */}
               <AnimatePresence>
                 {isHovered && (
                   <motion.span
@@ -180,9 +205,7 @@ export default function Navbar() {
                       "rounded-md px-2 py-1 text-[11px] font-medium",
                       "bg-zinc-900/90 text-white dark:bg-white/90 dark:text-zinc-900",
                       "shadow-lg backdrop-blur-sm",
-                      // Mobile: nav is at bottom → tooltip above
                       "bottom-[calc(100%+8px)]",
-                      // Desktop: nav is at top → tooltip below
                       "md:bottom-auto md:top-[calc(100%+8px)]",
                     ].join(" ")}
                   >

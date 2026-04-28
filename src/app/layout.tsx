@@ -76,10 +76,6 @@ export const metadata: Metadata = {
       follow: true,
     },
   },
-
-  verification: {
-    google: "paste_your_code_here",
-  },
 };
 
 export default function RootLayout({

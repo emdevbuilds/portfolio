@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# emmanuelchukwu.dev
+
+Personal portfolio and case study site — built with Next.js 15, TypeScript, and Tailwind CSS.
+
+Live at **[emmanuelchukwu.dev](https://emmanuelchukwu.dev)**
+
+---
+
+## Stack
+
+| Layer         | Technology                |
+| ------------- | ------------------------- |
+| Framework     | Next.js 15 (App Router)   |
+| Language      | TypeScript                |
+| Styling       | Tailwind CSS v4           |
+| Animation     | Framer Motion             |
+| UI Primitives | Radix UI                  |
+| Icons         | Lucide React, React Icons |
+| Marquee       | react-fast-marquee        |
+| Typewriter    | typewriter-effect         |
+| Analytics     | Vercel Analytics          |
+| Deployment    | Vercel                    |
+
+---
+
+## Project Structure
+
+```
+├── app/
+│   ├── page.tsx                  # Home — composes all sections
+│   ├── layout.tsx                # Root layout, font, metadata
+│   ├── globals.css
+│   └── projects/
+│       ├── page.tsx              # All projects archive
+│       └── [slug]/
+│           └── page.tsx          # Project case study (SSG)
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx            # Floating pill nav, scroll-aware active state
+│   │   └── Footer.tsx
+│   ├── sections/
+│   │   ├── Hero.tsx
+│   │   ├── TechMarquee.tsx
+│   │   ├── About.tsx
+│   │   ├── Experience.tsx
+│   │   ├── Skills.tsx
+│   │   ├── FeaturedProjects.tsx
+│   │   └── Contact.tsx
+│   ├── section-components.tsx    # Shared animation primitives
+│   ├── ProjectCard.tsx
+│   ├── ProjectDetail.tsx         # Client component for animated case study
+│   ├── ZoomableImage.tsx
+│   └── CtaButton.tsx
+└── lib/
+    ├── projects.ts               # Project data + case study content
+    ├── experience.ts
+    ├── techStack.ts
+    ├── techSkills.ts
+    ├── facts.ts
+    └── socialLinks.ts
+```
+
+---
+
+## Features
+
+- **Static generation** — all project case study pages pre-rendered at build time via `generateStaticParams`
+- **Scroll-aware navigation** — floating pill navbar tracks the active section using `IntersectionObserver`-style scroll detection; highlights the correct nav item per page on non-home routes via `usePathname`
+- **Orchestrated animations** — entrance animations use Framer Motion with a consistent `[0.16, 1, 0.3, 1]` easing curve and blur-in effect across all sections; staggered grids cascade children in on scroll
+- **Zoomable profile image** — custom lightbox with animated open/close, no external dialog dependency
+- **Dark mode** — full dark mode support via Tailwind's `dark:` variant
+- **SEO** — `generateMetadata` per route, `metadataBase`, sitemap, and `robots.txt`
+- **Analytics** — Vercel Analytics for page view tracking
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Start dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Type-check
+npm run build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Lint
+npm run lint
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Adding a Project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+All project data lives in `lib/projects.ts`. Each entry drives both the `ProjectCard` on the homepage and the full case study page at `/projects/[slug]`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```ts
+{
+  slug: "your-project",           // URL: /projects/your-project
+  name: "Your Project",
+  tagline: "One-line description shown on cards",
+  role: "Solo Developer",
+  period: "Jan 2025 – Present",
+  status: "In Development",       // "In Development" | "Live" | "Completed"
+  imageUrl: "/images/your-project.png",
+  githubUrl: "https://github.com/...",
+  liveUrl: "https://...",
+  stack: ["Next.js", "TypeScript", "PostgreSQL"],
 
-## Deploy on Vercel
+  // Case study content
+  overview: "...",
+  problem: "...",
+  myRole: "...",
+  decisions: [{ title: "...", body: "..." }],
+  challenges: [{ title: "...", body: "..." }],
+  results: "...",
+  retrospective: "...",
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT — feel free to use this as a reference or template. A credit or star is appreciated but not required.

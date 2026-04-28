@@ -42,7 +42,6 @@ export default function FeaturedProjects() {
         ))}
       </StaggeredGrid>
 
-      {/* CTA — matches CtaButtons primary style */}
       <RevealSection delay={0.1} className="flex justify-center mt-2">
         <motion.div whileTap={{ scale: 0.97 }}>
           <Link

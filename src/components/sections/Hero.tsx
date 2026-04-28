@@ -7,7 +7,6 @@ import CtaButtons from "@/components/CtaButton";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-// Each direct child of Hero staggers in on mount
 const heroContainer = {
   hidden: {},
   visible: {
@@ -31,9 +30,7 @@ const heroItem = {
 export default function Hero() {
   return (
     <section
-      id="home"
-      // No overflow-hidden — lets the glow breathe. The glow uses translate
-      // offsets instead of negative position values so it never gets clipped.
+      id="/"
       className="relative flex flex-col gap-7 pt-4 pb-24 md:pb-32"
     >
       <div

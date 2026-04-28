@@ -1,9 +1,12 @@
 "use client";
 
-import { SectionHeading, StaggeredGrid, StaggeredItem } from "@/components/section-components";
+import {
+  SectionHeading,
+  StaggeredGrid,
+  StaggeredItem,
+} from "@/components/section-components";
 import { techSkills } from "@/lib/techSkills";
 
-// Each category gets a subtle left-border accent
 const accentColors = [
   "border-l-green-500",
   "border-l-sky-400",

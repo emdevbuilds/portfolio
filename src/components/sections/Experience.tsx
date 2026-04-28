@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  RevealSection,
   SectionHeading,
   StaggeredGrid,
   StaggeredItem,
@@ -26,7 +25,6 @@ export default function Experience() {
         {experience.map((job) => (
           <StaggeredItem key={job.company}>
             <div className="group relative p-5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-200 dark:hover:border-zinc-700 transition-all duration-300 flex flex-col gap-4 overflow-hidden">
-              {/* Hover accent line */}
               <span
                 aria-hidden
                 className="absolute left-0 top-0 h-full w-0.5 bg-green-500 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-bottom rounded-r"

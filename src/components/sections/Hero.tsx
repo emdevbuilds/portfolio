@@ -49,7 +49,7 @@ export default function Hero() {
           <ZoomableImage
             src="/emmanuel.png"
             alt="Emmanuel Chukwu profile picture"
-            className="rounded-full ring-2 ring-green-500/70 ring-offset-2 ring-offset-white dark:ring-offset-black p-0 w-22 h-22 object-cover"
+            className="rounded-full ring-2 ring-green-500/70 ring-offset-2 ring-offset-white dark:ring-offset-zinc-900 p-0 w-22 h-22 object-cover"
           />
         </motion.div>
 

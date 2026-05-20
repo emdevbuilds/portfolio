@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="flex flex-col flex-1 font-sans dark:bg-black">
+    <>
       <Hero />
       <TechMarquee />
       <About />
@@ -18,6 +18,6 @@ export default function Home() {
       <FeaturedProjects />
       <Contact />
       <Footer />
-    </main>
+    </>
   );
 }

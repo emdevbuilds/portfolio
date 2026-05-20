@@ -16,10 +16,10 @@ export default function TechMarquee() {
     >
       <Marquee
         gradient
-        gradientColor="white"
+        gradientColor="var(--marquee-fade)"
         gradientWidth={100}
         speed={36}
-        className="dark:[--gradient-color:black]"
+        className="[--marquee-fade:white] dark:[--marquee-fade:oklch(0.19_0_0)]"
       >
         {techStack.map(({ name, Icon }) => (
           <div

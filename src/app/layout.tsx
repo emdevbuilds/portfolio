@@ -90,6 +90,20 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans antialiased selection:bg-green-100 selection:text-green-900">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const mq = window.matchMedia('(prefers-color-scheme: dark)');
+                const update = (e) => {
+                  document.documentElement.classList.toggle('dark', e.matches);
+                };
+                mq.addEventListener('change', update);
+                update(mq);
+              })();
+            `,
+          }}
+        />
         <Navbar />
         <main className="mx-auto w-full max-w-4xl px-6 sm:px-10 py-16 md:py-24 pb-24">
           {children}

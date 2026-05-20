@@ -47,7 +47,7 @@ export default function Hero() {
         {/* Avatar */}
         <motion.div variants={heroItem}>
           <ZoomableImage
-            src="/emmanuel.jpg"
+            src="/emmanuel.png"
             alt="Emmanuel Chukwu profile picture"
             className="rounded-full ring-2 ring-green-500/70 ring-offset-2 ring-offset-white dark:ring-offset-black p-0 w-22 h-22 object-cover"
           />

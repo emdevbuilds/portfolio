@@ -21,6 +21,88 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "faberlog",
+    name: "Faberlog",
+    tagline:
+      "A SaaS platform for Italian skilled tradespeople — job management, invoicing, and customer tracking.",
+    description:
+      "Full-stack Next.js SaaS with multi-language support, PDF invoicing, Cloudflare R2 file storage, and a 6-status job lifecycle. Built for electricians, plumbers, and contractors.",
+    status: "Live",
+    role: "Solo Developer · Full-Stack",
+    period: "2026 – Present",
+    imageUrl: "/projects/faberlog-preview.png",
+    stack: [
+      "Next.js 16",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma",
+      "Better Auth",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Cloudflare R2",
+      "Resend",
+      "React-PDF",
+      "next-intl",
+      "TanStack Query",
+      "Docker",
+    ],
+    liveUrl: "https://faberlog.com",
+    overview:
+      "Faberlog is a SaaS web application for Italian skilled tradespeople — electricians, plumbers, builders, and contractors. It provides a complete toolkit to manage the end-to-end lifecycle of contracting work: customer management with Italian-specific fields (Codice Fiscale, P.IVA), a 6-status job pipeline (QUOTE → APPROVED → IN_PROGRESS → COMPLETED → INVOICED → PAID), work phase tracking with time and material logging, PDF invoice generation, file attachments via Cloudflare R2, and a dashboard with aggregate statistics. The platform supports 10 languages and is built for international reach.",
+    problem:
+      "Italian skilled tradespeople — who make up a huge portion of the country's workforce — still run their businesses on WhatsApp messages, paper notebooks, and Excel spreadsheets. There's no dominant SaaS tool that handles the full workflow: quoting a job, tracking progress, logging hours and materials, invoicing the customer, and following up on payments. Existing solutions are either too generic (focused on non-trade businesses) or too narrow (invoicing only, no job tracking). Tradespeople need one tool that covers the entire lifecycle without requiring them to learn complex accounting software.",
+    myRole:
+      "Solo developer and product owner. I designed the data model, built the full frontend and backend, integrated file storage and email, implemented internationalisation, and managed the architecture end to end.",
+    decisions: [
+      {
+        title: "Next.js 16 App Router + Server Actions",
+        body: "Server Actions let me colocate data mutations with the UI that invokes them, eliminating the boilerplate of separate API routes for every CRUD operation. Combined with strict TypeScript and Zod validation on the server boundary, this gives me a type-safe data layer without an external backend framework.",
+      },
+      {
+        title: "PostgreSQL + Prisma (strict relational model)",
+        body: "The core domain — users, customers, jobs, phases, files — has rigid relationships enforced by foreign keys and Prisma's schema. A job always belongs to a customer, a phase always belongs to a job. MongoDB's document model would have made these constraints implicit rather than enforced, which is risky for financial data like invoices and payments.",
+      },
+      {
+        title: "Better Auth (not NextAuth/Auth.js)",
+        body: "Better Auth gives me a self-contained auth system with database sessions, email/password, Google OAuth, account linking, and a clean middleware API — all without the abstraction overhead of NextAuth. The session is stored in my own PostgreSQL database, which means I can query it directly for admin tooling and debugging.",
+      },
+      {
+        title: "Cloudflare R2 (not UploadThing)",
+        body: "I originally used UploadThing but migrated to R2 mid-project. R2 gives me direct control over file storage costs, no egress fees, and presigned URLs that let users upload directly from the browser without my server touching the file bytes. The migration meant rewriting the upload flow and deletion logic, but the cost savings and control were worth it.",
+      },
+      {
+        title: "next-intl for internationalisation",
+        body: "The app needed to serve both Italian tradespeople (in Italian) and an international audience (English, German, French, Spanish, and five more languages). next-intl handles locale detection, translations, and date/number formatting seamlessly with the App Router. The locale priority chain — user preference, cookie, browser header, English default — gave me a natural fallback without hard-coding language toggles everywhere.",
+      },
+      {
+        title: "React-PDF for invoice generation",
+        body: "Generating PDFs server-side with @react-pdf/renderer lets me reuse React components for the invoice template, including inline translations and conditional branding (Pro plan shows the user's name, Free shows 'Faberlog'). The PDF is generated on-demand and either streamed for download or attached to an email via Resend.",
+      },
+    ],
+    challenges: [
+      {
+        title: "Next.js 16 + Turbopack + Prisma compatibility",
+        body: "Next.js 16 defaults to Turbopack for production builds, but Turbopack has a known issue resolving Prisma's custom generated client output path (@/generated) on Vercel's Linux build environment. I spent days debugging production build failures before discovering the fix: passing the --webpack flag forces Next.js to use webpack instead of Turbopack, which handles the custom path correctly. This is now documented prominently in the README.",
+      },
+      {
+        title: "Cloudflare R2 CORS for browser uploads",
+        body: "After migrating from UploadThing to R2, direct browser uploads via presigned URLs failed silently with generic 'Failed to fetch' errors. The root cause was that R2 buckets don't allow browser uploads by default — CORS must be explicitly configured per domain. I wrote a script (configure-r2-cors.mjs) that sets the allowed origins, methods, and headers, and run it as part of setup.",
+      },
+      {
+        title: "Hard-delete user with cascade cleanup",
+        body: "Deleting a user account required removing their R2 files, database records, and auth sessions in the right order. I built a pruneUser server action that: fetches all file keys from the user's jobs, deletes each object from R2, then deletes the user from the database (which cascades through Prisma relations). Getting the R2 deletion to run before the DB deletion — and handling partial failures — was more complex than expected.",
+      },
+      {
+        title: "No payment integration yet",
+        body: "The subscription model (Free with 10-job limit vs Pro with unlimited jobs and custom branding) is fully designed and enforced in the codebase, but there is no way for users to actually upgrade. The pricing page, plan enum, and plan checks all exist — but no payment processor is connected. I designed the architecture so that adding Lemon Squeezy or Stripe is a self-contained feature rather than a rewrite, but building the billing webhooks, checkout flow, and subscription management is still ahead of me.",
+      },
+    ],
+    results:
+      "Core platform fully functional. User authentication, customer management, 6-status job lifecycle, phase tracking with time and materials, file uploads via R2, PDF invoice generation, email invoicing (Pro), WhatsApp sharing, duplicate jobs, 10-language internationalisation, and dashboard analytics — all working against a live Neon PostgreSQL database.",
+    retrospective:
+      "I should have started with Cloudflare R2 instead of migrating from UploadThing mid-project. The migration itself wasn't painful, but the time spent on the original integration was wasted. I'd also have built the payment integration earlier in the project lifecycle — it's the one feature that turns the app from a demo into a real business, and pushing it to the end means every potential user who hits the 10-job limit can't actually upgrade. On the positive side, the strict data model and type safety have made the codebase extremely reliable — I rarely encounter runtime errors in production.",
+  },
+  {
     slug: "ounuu",
     name: "OUNUU Health Alliance",
     tagline:
